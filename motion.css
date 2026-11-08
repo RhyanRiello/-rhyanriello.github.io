@@ -1,0 +1,38 @@
+/* Movement vocabulary: sharp arrival, momentum, depth, then a clean resting state. */
+.motion-progress{position:fixed;z-index:50;inset:0 0 auto;height:3px;background:#d6edf5;transform:scaleX(0);transform-origin:left;box-shadow:0 0 12px #a7d1e5;pointer-events:none}
+.motion-dock{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));right:22px;z-index:30;display:flex;align-items:center;gap:10px;padding:11px 15px;border:1px solid #c2dbe64d;border-radius:30px;background:#18313eee;color:#edf6f7;box-shadow:0 4px 25px #10232d30;font-size:10px;letter-spacing:.6px;cursor:pointer;min-height:44px;backdrop-filter:blur(12px)}
+.motion-dock:before{content:'';width:7px;height:7px;border-radius:50%;background:#c8e9f1;box-shadow:0 0 8px #c8e9f166}.motion-lite .motion-dock:before{box-shadow:none;background:#8d9eaa}
+.motion-focus{position:fixed;z-index:20;width:44px;height:44px;border:1px solid #c7e5ee80;border-radius:50%;left:0;top:0;pointer-events:none;opacity:0;transition:width .24s,height .24s,opacity .25s,border-color .25s;mix-blend-mode:screen}
+.motion-focus.is-link{width:72px;height:72px;border-color:#edffff;background:#c9e9f510}.motion-lite .motion-focus{display:none}
+.hero-main h1 .motion-line{display:block;position:relative}.hero-main h1{perspective:900px}
+.hero-person-correct>img{transform:translate3d(var(--person-x,0px),var(--person-y,0px),0);transition:transform .18s linear}
+.hero-name{transform:translate3d(var(--name-x,0px),var(--name-y,0px),0)}
+.motion-full .hero-name{will-change:transform}.hero-main{transform:translate3d(0,var(--copy-y,0px),0)}
+.alpine-hero:after{content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse at var(--light-x,65%) var(--light-y,20%),#d2ebf019,transparent 46%);opacity:.8}
+.motion-full .hero-top>span:first-child:before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:#d7f0f4;box-shadow:0 0 12px #d7f0f4;margin-right:8px}
+.motion-full .brand span{display:inline-block;animation:brand-orbit 16s linear infinite;transform-origin:center}
+@keyframes brand-orbit{to{transform:rotate(360deg)}}
+.ticker{display:block;padding:0;overflow:hidden}.ticker-track{display:flex;width:max-content;padding:19px 0;will-change:transform}.ticker-group{display:flex;gap:42px;align-items:center;padding-right:42px;flex-shrink:0}.ticker-group>span{display:block;flex-shrink:0}
+.motion-full .ticker-track{animation:kinetic-ribbon 24s linear infinite}.ticker:not(.motion-active) .ticker-track{animation-play-state:paused}
+@keyframes kinetic-ribbon{to{transform:translateX(-50%)}}
+.motion-full .project .art{transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) translateY(var(--lift,0px));transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .3s;isolation:isolate}
+.motion-full .project:hover{--lift:-7px}.project .art:after{content:'';position:absolute;z-index:2;inset:-50%;pointer-events:none;background:linear-gradient(110deg,transparent 38%,#e4ffff22 49%,transparent 60%);transform:translateX(-60%) rotate(-8deg);opacity:0;transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.motion-full .project:hover .art:after{transform:translateX(60%) rotate(-8deg);opacity:1}
+.project-meta h3{position:relative;display:inline-block}.project-meta h3:after{content:'';position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)}.project:hover .project-meta h3:after{transform:scaleX(1)}
+.project .open{transition:transform .5s cubic-bezier(.2,1,.2,1),background .3s}.project:hover .open{transform:rotate(45deg) scale(1.15);background:#d9eef52b}
+.motion-full .project:hover .orbit{animation:project-orbit 10s linear infinite}.motion-full .project:hover .orbit.two{animation-direction:reverse;animation-duration:15s}
+@keyframes project-orbit{from{transform:rotate(-25deg) scaleX(1.6)}to{transform:rotate(335deg) scaleX(1.6)}}
+.alpine-cta>span,.contact-link>span{transition:transform .45s cubic-bezier(.2,.8,.2,1),background .4s}.motion-full .alpine-cta:hover>span{transform:rotate(45deg);background:#d9eef54d}.motion-full .contact-link:hover>span{transform:translate(6px,-6px)}
+.motion-full .nav a{position:relative;transition:opacity .3s}.nav a:after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s}.nav a:hover:after,.nav a:focus-visible:after{transform:scaleX(1)}.nav a:hover{border-bottom:0}
+.motion-full .dialog[open]{animation:dialog-arrival .6s cubic-bezier(.16,1,.3,1) both}.motion-full .dialog[open]::backdrop{animation:backdrop-arrival .4s ease both}
+@keyframes dialog-arrival{from{opacity:0;transform:translateY(50px) scale(.93);filter:blur(10px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes backdrop-arrival{from{background:#10201800;backdrop-filter:blur(0)}to{background:#102018b0;backdrop-filter:blur(8px)}}
+.practice{position:relative}.motion-full .practice{transition:padding-left .4s,background .4s}.motion-full .practice:hover{padding-left:12px;background:#d6ebf208}
+.motion-full .contact h2{transform:translate3d(var(--contact-x,0px),0,0);transition:transform .15s linear}.contact{isolation:isolate}.contact h2::selection{background:#254759;color:#e0f1f4}
+.motion-lite *, .motion-lite *::before,.motion-lite *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.motion-lite .signature-toggle{display:none}.motion-lite .hero-person-correct>img,.motion-lite .hero-name,.motion-lite .hero-main,.motion-lite .contact h2{transform:none!important}.motion-lite .project .art{transform:none!important}.motion-lite .ticker-track{transform:none!important}
+html:has(.motion-lite){scroll-behavior:auto}
+@media(max-width:760px){.motion-dock{right:13px;bottom:max(12px,env(safe-area-inset-bottom));font-size:9px;padding:10px 13px}.motion-focus{display:none}.ticker-track{padding:15px 0}.ticker-group{gap:25px;padding-right:25px}.motion-full .hero-person-correct>img{transition:none}footer{padding-bottom:85px}.motion-full .project:hover{--lift:0px}}
+@media(prefers-reduced-motion:reduce){.motion-focus{display:none}.ticker-track,.brand span{animation:none!important}.motion-full .project .art,.hero-person-correct>img,.hero-name,.hero-main{transform:none!important}}
+
+.motion-background *,.motion-background *::before,.motion-background *::after{animation-play-state:paused!important}
+.hero-main h1>.motion-line{font:inherit;letter-spacing:inherit;line-height:inherit;margin:0;vertical-align:baseline}
