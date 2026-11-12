@@ -45,8 +45,12 @@
     if (wasActive) {
       try { sessionStorage.setItem(storageKey, 'seen'); } catch {}
       if (restoreFocus) {
-        const target = lastFocus && lastFocus !== document.body && lastFocus.isConnected ? lastFocus : document.querySelector('.brand');
-        target?.focus({ preventScroll: true });
+        // Restore a keyboard-activated replay; automatic playback has no link to focus.
+        if (lastFocus?.isConnected && !lastFocus.closest('[hidden], [inert]') && lastFocus.getClientRects().length) {
+          lastFocus.focus({ preventScroll: true });
+        } else {
+          overlay.blur();
+        }
       }
       document.dispatchEvent(new CustomEvent('portfolio-intro-end', { detail: { reason } }));
     }
@@ -70,13 +74,13 @@
     frame = requestAnimationFrame(paint);
   }
 
-  function start() {
+  function start(event) {
     if (state !== 'idle') return;
     if (motionReduced() || document.hidden) { finish('unavailable'); return; }
     clearBoot();
     state = 'loading';
     const currentRun = ++runId;
-    lastFocus = document.activeElement;
+    lastFocus = event?.currentTarget === replay && event.detail === 0 ? replay : null;
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     shell.style.setProperty('--rr-intro-origin', (innerHeight / 2) + 'px');
     shell.inert = true;
