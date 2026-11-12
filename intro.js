@@ -4,8 +4,6 @@
   const shell = document.getElementById('rr-portfolio-shell');
   const overlay = document.getElementById('rr-intro');
   const video = document.getElementById('rr-intro-video');
-  const skip = document.getElementById('rr-intro-skip');
-  const sound = document.getElementById('rr-intro-sound');
   const replay = document.getElementById('rr-intro-replay');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const storageKey = 'rhyan-portfolio-intro-v1';
@@ -27,11 +25,6 @@
   function clearBoot() {
     if (window.rrIntroBootTimer) clearTimeout(window.rrIntroBootTimer);
     delete window.rrIntroBootTimer;
-  }
-
-  function updateSound() {
-    sound.textContent = video.muted ? 'Ativar som' : 'Silenciar';
-    sound.setAttribute('aria-pressed', String(!video.muted));
   }
 
   function finish(reason = 'complete') {
@@ -57,7 +50,6 @@
       }
       document.dispatchEvent(new CustomEvent('portfolio-intro-end', { detail: { reason } }));
     }
-    updateSound();
   }
 
   function paint() {
@@ -95,10 +87,9 @@
     video.defaultMuted = true;
     video.playsInline = true;
     video.poster = 'assets/intro-metal-cinema-v1-poster.jpg';
-    if (!video.getAttribute('src')) video.src = 'assets/intro-metal-cinema-v1.mp4';
+    if (!video.getAttribute('src')) video.src = 'assets/intro-metal-cinema-v2.mp4';
     else video.currentTime = 0;
-    updateSound();
-    skip.focus({ preventScroll: true });
+    overlay.focus({ preventScroll: true });
     loadTimer = setTimeout(() => finish('load-timeout'), 3000);
     watchdog = setTimeout(() => finish('watchdog'), 7000);
     try {
@@ -118,23 +109,9 @@
   });
   video.addEventListener('ended', () => finish());
   video.addEventListener('error', () => finish('media-error'));
-  skip.addEventListener('click', () => finish('skipped'));
   replay.addEventListener('click', start);
-  sound.addEventListener('click', () => {
-    video.muted = !video.muted;
-    updateSound();
-    if (video.paused && state !== 'idle') {
-      const currentRun = runId;
-      const playback = video.play();
-      if (playback) playback.catch(() => { if (runId === currentRun) finish('playback-blocked'); });
-    }
-  });
   overlay.addEventListener('keydown', event => {
-    if (event.key === 'Escape') { event.preventDefault(); finish('skipped'); }
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      (document.activeElement === skip ? sound : skip).focus();
-    }
+    if (event.key === 'Tab') event.preventDefault();
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden && state !== 'idle') finish('hidden'); });
   window.addEventListener('pagehide', () => finish('navigation'));

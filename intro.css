@@ -15,7 +15,7 @@ html.rr-intro-active { overflow: hidden; }
 .rr-intro-active .motion-focus,
 .rr-intro-active .motion-progress { visibility: hidden; }
 .rr-intro[hidden] { display: none; }
-.rr-intro { position: static; }
+.rr-intro { position: static; outline: none; }
 .rr-intro::before { content: ''; position: fixed; inset: 0; z-index: 999; }
 .rr-intro-video {
   position: fixed;
@@ -31,30 +31,6 @@ html.rr-intro-active { overflow: hidden; }
   pointer-events: none;
   background: #000;
 }
-.rr-intro-controls {
-  position: fixed;
-  z-index: 1001;
-  bottom: max(26px, env(safe-area-inset-bottom));
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  white-space: nowrap;
-}
-.rr-intro-controls button {
-  min-height: 44px;
-  padding: 10px 17px;
-  border: 1px solid #d9e9f04d;
-  border-radius: 30px;
-  background: #18313ee8;
-  color: #f2f8fa;
-  font-size: 11px;
-  letter-spacing: .4px;
-  cursor: pointer;
-}
-.rr-intro-controls button:hover { background: #294859; }
-.rr-intro-controls button:focus-visible { outline: 2px solid #e5f8ff; outline-offset: 4px; }
 .rr-intro-replay {
   border: 0;
   border-bottom: 1px solid currentColor;
@@ -79,7 +55,6 @@ html.rr-intro-active { overflow: hidden; }
 }
 @media (max-width: 760px) {
   footer { flex-wrap: wrap; align-items: center; }
-  .rr-intro-controls { gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rr-intro { display: none !important; }
